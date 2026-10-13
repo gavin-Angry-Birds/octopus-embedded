@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="Octopus Embedded Banner" width="100%" style="max-width: 840px; border-radius: 12px;" />
+  <img src="assets/banner.png" alt="Octopus Embedded Banner" width="840" />
 </p>
 
 <p align="center">
