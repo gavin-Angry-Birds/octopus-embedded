@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 980" width="1180" height="980" role="img" aria-label="Octopus Embedded Architecture Overview">
+  <defs>
+    <linearGradient id="archBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#090E17" />
+      <stop offset="100%" stop-color="#090E17" />
+    </linearGradient>
+    <style>
+      .title { font-family: Segoe UI, Helvetica, Arial, sans-serif; font-size: 22px; font-weight: 700; fill: #F8FAFC; }
+      .subtitle { font-family: Segoe UI, Helvetica, Arial, sans-serif; font-size: 13px; fill: #94A3B8; }
+      .layer-title { font-family: Segoe UI, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 700; fill: #F0FDFA; }
+      .box-title { font-family: Segoe UI, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 600; fill: #F8FAFC; }
+      .box-body { font-family: Segoe UI, Helvetica, Arial, sans-serif; font-size: 11px; fill: #CBD5E1; }
+      .muted { font-family: Segoe UI, Helvetica, Arial, sans-serif; font-size: 10px; fill: #94A3B8; }
+      .tag { font-family: Segoe UI, Helvetica, Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #2DD4BF; }
+      .arrow { font-family: Segoe UI, Helvetica, Arial, sans-serif; font-size: 10px; fill: #94A3B8; }
+    </style>
+  </defs>
+
+  <rect width="1180" height="980" fill="#090E17" />
+  <text x="40" y="36" class="title">Octopus Embedded - Architecture Overview</text>
+  <text x="40" y="56" class="subtitle">Cross-SoC embedded Linux base  |  Phase 0 design draft</text>
+
+  <!-- Layer 4 -->
+  <rect x="40" y="78" width="1100" height="150" rx="8" fill="#0B1220" stroke="#0D9488" stroke-width="1.5" />
+  <text x="56" y="100" class="layer-title">4. Application &amp; Extension Clients</text>
+  <text x="780" y="100" class="tag">same Running-Config via JSON-RPC / IPC</text>
+
+  <rect x="60" y="118" width="190" height="88" rx="6" fill="#111827" stroke="#134E4A" stroke-width="1" />
+  <text x="72" y="140" class="box-title">Web UI</text>
+  <text x="72" y="158" class="box-body">Static HTML / JS</text>
+  <text x="72" y="174" class="box-body">Hiawatha + FastCGI</text>
+  <text x="72" y="190" class="muted">config client only</text>
+
+  <rect x="270" y="118" width="190" height="88" rx="6" fill="#111827" stroke="#134E4A" stroke-width="1" />
+  <text x="282" y="140" class="box-title">Local Panel</text>
+  <text x="282" y="158" class="box-body">HDMI / LCD</text>
+  <text x="282" y="174" class="box-body">Qt or LVGL (display)</text>
+  <text x="282" y="190" class="muted">no private config store</text>
+
+  <rect x="480" y="118" width="190" height="88" rx="6" fill="#111827" stroke="#134E4A" stroke-width="1" />
+  <text x="492" y="140" class="box-title">octopus_cli</text>
+  <text x="492" y="158" class="box-body">Serial / SSH shell</text>
+  <text x="492" y="174" class="box-body">.ocli command tree</text>
+  <text x="492" y="190" class="muted">IPC to octopus_app</text>
+
+  <rect x="690" y="118" width="190" height="88" rx="6" fill="#111827" stroke="#134E4A" stroke-width="1" />
+  <text x="702" y="140" class="box-title">Cloud / 3rd-party</text>
+  <text x="702" y="158" class="box-body">RPC / SDK clients</text>
+  <text x="702" y="174" class="box-body">C / Python bindings</text>
+  <text x="702" y="190" class="muted">liboctopus_client</text>
+
+  <rect x="900" y="118" width="220" height="88" rx="6" fill="#111827" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4 3" />
+  <text x="912" y="140" class="box-title">Optional: ai_vision_daemon</text>
+  <text x="912" y="158" class="box-body">Separate process / NPU runtime</text>
+  <text x="912" y="174" class="box-body">Control: JSON-RPC / Data: SHM</text>
+  <text x="912" y="190" class="muted">fault domain isolated / Phase 4+</text>
+
+  <!-- Layer 3 -->
+  <rect x="40" y="248" width="700" height="280" rx="8" fill="#0B1220" stroke="#38BDF8" stroke-width="1.5" />
+  <text x="56" y="270" class="layer-title">3. Management Plane - octopus_app</text>
+  <text x="56" y="288" class="muted">Single source of truth / Candidate-Running transactions / no heavy I/O in main loop</text>
+
+  <rect x="60" y="304" width="150" height="70" rx="6" fill="#111827" stroke="#1E3A5F" />
+  <text x="72" y="326" class="box-title">CLI engine</text>
+  <text x="72" y="344" class="box-body">octopus_cli core</text>
+  <text x="72" y="360" class="muted">in-process / IPC</text>
+
+  <rect x="228" y="304" width="150" height="70" rx="6" fill="#111827" stroke="#1E3A5F" />
+  <text x="240" y="326" class="box-title">JSON-RPC</text>
+  <text x="240" y="344" class="box-body">Unix domain socket</text>
+  <text x="240" y="360" class="muted">SO_PEERCRED auth</text>
+
+  <rect x="396" y="304" width="150" height="70" rx="6" fill="#111827" stroke="#1E3A5F" />
+  <text x="408" y="326" class="box-title">octopus_config</text>
+  <text x="408" y="344" class="box-body">text running-config</text>
+  <text x="408" y="360" class="muted">atomic save pipeline</text>
+
+  <rect x="564" y="304" width="156" height="70" rx="6" fill="#111827" stroke="#1E3A5F" />
+  <text x="576" y="326" class="box-title">Diagnostics</text>
+  <text x="576" y="344" class="box-body">lock_watchdog</text>
+  <text x="576" y="360" class="muted">heap stats / blackbox</text>
+
+  <rect x="60" y="392" width="660" height="116" rx="6" fill="#111827" stroke="#1E3A5F" />
+  <text x="72" y="414" class="box-title">Built-in modules (examples)</text>
+  <text x="72" y="436" class="box-body">system / network / firmware OTA orchestration / introspection</text>
+  <text x="72" y="456" class="box-body">On-demand helpers: firmware_worker / diag_collector</text>
+  <text x="72" y="476" class="box-body">Optional plugin: switch_offload (ASIC forwarding table)</text>
+  <text x="72" y="496" class="muted">Watchdog thread owns /dev/watchdog / heartbeat matrix</text>
+
+  <!-- Layer 2 -->
+  <rect x="760" y="248" width="380" height="280" rx="8" fill="#0B1220" stroke="#2DD4BF" stroke-width="1.5" />
+  <text x="776" y="270" class="layer-title">2. Runtime Environment</text>
+
+  <rect x="780" y="292" width="340" height="96" rx="6" fill="#111827" stroke="#134E4A" />
+  <text x="792" y="314" class="box-title">octopus_supervisor (PID 1)</text>
+  <text x="792" y="332" class="box-body">Declarative DAG start / readiness</text>
+  <text x="792" y="348" class="box-body">Backoff restart / clean shutdown</text>
+  <text x="792" y="368" class="muted">pure C / lightweight / no systemd</text>
+
+  <rect x="780" y="404" width="340" height="104" rx="6" fill="#111827" stroke="#134E4A" />
+  <text x="792" y="426" class="box-title">octopus_loader (initramfs)</text>
+  <text x="792" y="444" class="box-body">Mount OFI RootFS (SquashFS)</text>
+  <text x="792" y="460" class="box-body">tmpfs Overlay / bind DATA volume</text>
+  <text x="792" y="476" class="box-body">switch_root / supervisor</text>
+  <text x="792" y="496" class="muted">read-only base survives power cuts</text>
+
+  <!-- Layer 1 -->
+  <rect x="40" y="548" width="1100" height="168" rx="8" fill="#0B1220" stroke="#FB923C" stroke-width="1.5" />
+  <text x="56" y="570" class="layer-title">1. Hardware &amp; Kernel (SoC-specific thin edge)</text>
+  <text x="56" y="588" class="muted">Business logic must not live here / only DTS + Board HAL change when swapping SoC</text>
+
+  <rect x="60" y="604" width="250" height="92" rx="6" fill="#111827" stroke="#9A3412" />
+  <text x="72" y="626" class="box-title">U-Boot + cmd_ofi</text>
+  <text x="72" y="644" class="box-body">OFI verify / slot select</text>
+  <text x="72" y="660" class="box-body">A/B arbitration / bootcount</text>
+  <text x="72" y="678" class="muted">Bootloader not in OTA (default)</text>
+
+  <rect x="330" y="604" width="250" height="92" rx="6" fill="#111827" stroke="#9A3412" />
+  <text x="342" y="626" class="box-title">Linux Kernel + DTS</text>
+  <text x="342" y="644" class="box-body">Drivers / netdev / MTD/UBI</text>
+  <text x="342" y="660" class="box-body">watchdog / pstore / RAMoops</text>
+  <text x="342" y="678" class="muted">vendor BSP boundary</text>
+
+  <rect x="600" y="604" width="250" height="92" rx="6" fill="#111827" stroke="#9A3412" />
+  <text x="612" y="626" class="box-title">Board HAL (liboctopus_board)</text>
+  <text x="612" y="644" class="box-body">MAC / SN / LED / button</text>
+  <text x="612" y="660" class="box-body">WDT / reset reason / thermal</text>
+  <text x="612" y="678" class="muted">pure C ABI</text>
+
+  <rect x="870" y="604" width="250" height="92" rx="6" fill="#111827" stroke="#9A3412" />
+  <text x="882" y="626" class="box-title">Optional silicon</text>
+  <text x="882" y="644" class="box-body">Ethernet switch (DSA)</text>
+  <text x="882" y="660" class="box-body">NPU / panel DRM / HW WDT</text>
+  <text x="882" y="678" class="muted">out-of-tree vendor blobs</text>
+
+  <!-- Storage -->
+  <rect x="40" y="736" width="1100" height="200" rx="8" fill="#0B1220" stroke="#64748B" stroke-width="1.5" />
+  <text x="56" y="758" class="layer-title">Storage Abstraction (SAL) - six logical volumes</text>
+  <text x="56" y="776" class="muted">NOR / SPI-NAND / eMMC map to the same names / firmware slots use OFI / DATA holds config &amp; logs</text>
+
+  <rect x="60" y="792" width="160" height="70" rx="6" fill="#111827" stroke="#475569" />
+  <text x="72" y="814" class="box-title">BOOT</text>
+  <text x="72" y="832" class="box-body">SPL + U-Boot</text>
+  <text x="72" y="848" class="muted">factory only</text>
+
+  <rect x="236" y="792" width="160" height="70" rx="6" fill="#111827" stroke="#475569" />
+  <text x="248" y="814" class="box-title">ENV</text>
+  <text x="248" y="832" class="box-body">slot / bootcount</text>
+  <text x="248" y="848" class="muted">redundant copy</text>
+
+  <rect x="412" y="792" width="160" height="70" rx="6" fill="#111827" stroke="#475569" />
+  <text x="424" y="814" class="box-title">FACTORY</text>
+  <text x="424" y="832" class="box-body">MAC / SN / cal</text>
+  <text x="424" y="848" class="muted">write-protect</text>
+
+  <rect x="588" y="792" width="160" height="70" rx="6" fill="#042F2E" stroke="#0D9488" stroke-width="1.5" />
+  <text x="600" y="814" class="box-title">SLOT_A (OFI)</text>
+  <text x="600" y="832" class="box-body">kernel + rootfs</text>
+  <text x="600" y="848" class="muted">A/B peer</text>
+
+  <rect x="764" y="792" width="160" height="70" rx="6" fill="#042F2E" stroke="#0D9488" stroke-width="1.5" />
+  <text x="776" y="814" class="box-title">SLOT_B (OFI)</text>
+  <text x="776" y="832" class="box-body">kernel + rootfs</text>
+  <text x="776" y="848" class="muted">A/B peer</text>
+
+  <rect x="940" y="792" width="180" height="70" rx="6" fill="#111827" stroke="#475569" />
+  <text x="952" y="814" class="box-title">DATA</text>
+  <text x="952" y="832" class="box-body">config / logs</text>
+  <text x="952" y="848" class="muted">not part of a slot</text>
+
+  <text x="60" y="894" class="arrow">Boot path: U-Boot (select slot + verify OFI) -&gt; Linux -&gt; octopus_loader -&gt; octopus_supervisor -&gt; octopus_app (+ optional daemons)</text>
+  <text x="60" y="914" class="arrow">OTA path: write idle slot -&gt; ENV trying -&gt; health confirm -&gt; valid / on failure bootcount rollback to previous slot</text>
+  <text x="60" y="934" class="muted">Open items before Phase 3 coding: half-write window, bootcount classification, Rescue Mode - see architecture section 13.1</text>
+</svg>

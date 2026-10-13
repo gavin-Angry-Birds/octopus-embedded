@@ -16,6 +16,8 @@ and this project aims to follow [Semantic Versioning](https://semver.org/) once 
 - English `README.md` aligned with `README.zh-CN.md` (glossary diagrams, eight dilemmas, roadmap tags)
 - Explicit **Phase 3 blockers** callout on architecture chapter 13.1
 - Documentation language policy (Chinese authoritative) in `docs/README.md` and `CONTRIBUTING.md`
+- Full English twins for all Chinese design docs (`*.en.md`): architecture, reliability, and four guides
+- Architecture overview diagram (`assets/architecture-overview.svg` / `.png`) on README
 
 ### Changed
 

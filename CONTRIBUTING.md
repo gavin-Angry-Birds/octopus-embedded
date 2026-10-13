@@ -8,9 +8,10 @@ Thank you for your interest in **Octopus Embedded**. During the **design phase**
 
 ## Language policy (source of truth)
 
-- **Simplified Chinese** (`README.zh-CN.md` and the body of docs under `docs/`) is the **authoritative** source for architecture intent.
-- Keep English entry points (`README.md`, `SECURITY.md`, `CHANGELOG.md`, and English sections of bilingual files) aligned in the same PR when you change meaning.
-- Translations that only improve English wording without changing Chinese intent are welcome.
+- **Simplified Chinese** (`README.zh-CN.md` and `docs/**/NN-slug.md`) is **authoritative** for architecture intent.
+- Every Chinese design doc has an English twin: `NN-slug.en.md`. Change meaning in Chinese first (or the same PR), then align the twin.
+- Also keep English entry points (`README.md`, `SECURITY.md`, `CHANGELOG.md`, bilingual sections) aligned when meaning changes.
+- Wording-only English improvements that do not change Chinese intent are welcome.
 
 Security reports: [SECURITY.md](SECURITY.md). Do not paste exploit details into public issues.
 

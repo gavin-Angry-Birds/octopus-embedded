@@ -1,5 +1,7 @@
 # Octopus Embedded 核心架构设计与工程决策规范 (Architecture Specification & RFCs)
 
+**简体中文** | [English](./00-platform-design.en.md)
+
 > **文档定位**：本文档是 Octopus Embedded 开源项目的**总体架构设计规范与核心决策论证（Architecture Specification & Decision Records）**。  
 > **适用阶段**：指导 Phase 1（核心骨架）至 Phase 4（量产加固）的工程实现，作为全系统代码实现、跨芯片移植与开源社区协作的根本技术指引。
 

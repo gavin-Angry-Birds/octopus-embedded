@@ -15,7 +15,7 @@ This roadmap tracks public delivery milestones. Tags follow [Semantic Versioning
 - [x] Document 7 production-critical topics (watchdog, OOM, storage, diagnostics, …)
 - [x] Logo & visual identity (`assets/logo.svg`, `assets/banner.svg`, `assets/icon.svg`)
 - [x] Add `SECURITY.md` (vulnerability reporting channel and response times)
-- [x] Add `CHANGELOG.md` and document language policy (Chinese authoritative)
+- [x] Add `CHANGELOG.md` and document language policy (Chinese authoritative + `*.en.md` twins for all design docs)
 - [ ] GitHub public repository live
 - [ ] Enable GitHub Discussions for RFCs
 - [x] Point Issue-template / Security-advisory / CHANGELOG URLs at `gavin-Angry-Birds/octopus-embedded`
