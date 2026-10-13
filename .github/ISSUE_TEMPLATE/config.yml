@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  # Public repo: github.com/gavin-Angry-Birds/octopus-embedded
+  - name: GitHub Discussions
+    url: https://github.com/gavin-Angry-Birds/octopus-embedded/discussions
+    about: Ask questions, share ideas, and discuss architecture RFCs. Enable Discussions on the repo after the first push.
+  - name: Security vulnerability report
+    url: https://github.com/gavin-Angry-Birds/octopus-embedded/security/advisories/new
+    about: Private vulnerability reports (see SECURITY.md). Do not post exploit details in public issues.

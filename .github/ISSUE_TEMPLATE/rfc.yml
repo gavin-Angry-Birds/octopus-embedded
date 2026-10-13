@@ -1,0 +1,48 @@
+name: "Architecture RFC Proposal"
+description: "Propose an architectural change, new module boundary, or technical trade-off"
+title: "[RFC]: "
+labels: ["rfc", "architecture"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for submitting an Architectural RFC to **Octopus Embedded**!
+        Please ensure you have read `docs/architecture/00-platform-design.md` before submitting.
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: A one-sentence explanation of the proposed architectural change.
+      placeholder: "e.g., Introduce SPI-NAND bad block skipping symmetry in cmd_ofi"
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation & Problem Definition
+      description: Why are we doing this? What use cases does it support? What pain points does it solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Architecture / Interface
+      description: Detailed technical explanation of the proposal. Include proposed C interfaces or state diagrams where applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: trade-offs
+    attributes:
+      label: Trade-offs & Alternatives Considered
+      description: What other designs were considered? What are the downsides or costs of this proposal?
+    validations:
+      required: false
+  - type: checkboxes
+    id: affected-docs
+    attributes:
+      label: Affected Documentation
+      options:
+        - label: "docs/architecture/00-platform-design.md (Core Architecture)"
+        - label: "docs/reliability/00-critical-topics.md (Production & Reliability)"
+        - label: "docs/guides/* (HAL, Language, QEMU, AI)"
+        - label: "ROADMAP.md (Phase Milestones)"

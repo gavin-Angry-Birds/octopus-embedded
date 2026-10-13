@@ -1,0 +1,31 @@
+name: "Architecture / Documentation Feedback"
+description: "Report an inconsistency, technical error, or clarification in architecture specs"
+title: "[Feedback]: "
+labels: ["documentation", "feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Found an inconsistency, broken diagram, or technical issue in the documentation?
+        Thank you for helping us polish the architecture specs!
+  - type: input
+    id: doc-path
+    attributes:
+      label: Document Path & Section
+      placeholder: "e.g., docs/architecture/00-platform-design.md#section-4"
+    validations:
+      required: true
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: Description of the Issue
+      description: What is unclear, conflicting, or technically incorrect?
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-fix
+    attributes:
+      label: Suggested Improvement / Fix
+      description: How should this be updated or clarified?
+    validations:
+      required: false

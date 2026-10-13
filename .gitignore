@@ -1,0 +1,49 @@
+# Build artifacts
+build/
+out/
+cmake-build-*/
+*.o
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Secrets — never commit
+.env
+.env.*
+*.pem
+*.key
+*.p12
+credentials.json
+secrets/
+
+# Test / coverage
+*.gcno
+*.gcda
+coverage/
+*.profraw
+
+# Python (future tooling)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Vendor / proprietary reference (must NOT enter this repo)
+vendor-reference/
+proprietary/
+buildroot/
+
+# Agent local scratch (ACL repair backups, temporary review drafts)
+.dsh-acl-recovery/
