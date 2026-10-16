@@ -11,6 +11,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/) once 
 
 ### Added
 
+- docs: ADR-0001 interim v0.x decisions for §13.1 blockers (architecture §13.1.0); Buildroot chosen; ROADMAP Phase 0.5 QEMU A/B OTA demo milestone
 - `SECURITY.md` — vulnerability reporting channels and response targets
 - `CHANGELOG.md` — design-phase change log
 - English `README.md` aligned with `README.zh-CN.md` (glossary diagrams, eight dilemmas, roadmap tags)

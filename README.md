@@ -162,9 +162,10 @@ See [ROADMAP.md](ROADMAP.md).
 | Phase | Focus | Tag | Status |
 |-------|--------|-----|--------|
 | 0 | Architecture draft and RFCs (this repo’s docs) | `v0.1.0-design` | Published, open for discussion |
-| 1 | `liboctopus_basics`, CMake, unit tests, parser fuzz, JSON-RPC stub | `v0.2.0-alpha` | Planned |
-| 2 | CLI, config transactions, Board HAL, public SDK | `v0.3.0-alpha` | Planned |
-| 3 | U-Boot OFI, supervisor, dual-slot firmware | `v0.4.0-beta` | Planned |
+| 0.5 | QEMU A/B OTA minimal demo (power-cut test + CI) | `v0.2.0-demo` | Next |
+| 1 | `liboctopus_basics`, CMake, unit tests, parser fuzz, JSON-RPC stub | `v0.3.0-alpha` | Planned |
+| 2 | CLI, config transactions, Board HAL, public SDK | `v0.4.0-alpha` | Planned |
+| 3 | U-Boot OFI, supervisor, dual-slot firmware | `v0.5.0-beta` | Planned |
 | 4 | Integration, optional vision, stress tests | `v1.0.0-rc1` | Planned |
 
 ---

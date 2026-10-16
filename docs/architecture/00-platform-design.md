@@ -1396,9 +1396,9 @@ int octopus_get_health_snapshot(octopus_health_snapshot_t *out);
 
 | 阶段          | 目标版本号          | 本架构规范对应的具体交付物约束                                                                                                            |
 | ----------- | -------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Phase 1** | `v0.2.0-alpha` | 确立 CMake monorepo；基于 `liboctopus_basics` 实现 `board_hal.h` / `module.h` / `config.h` 桩定义；x86 单元测试；单体主程序骨架与基础 JSON-RPC 通信验证；配置解析器与 OFI 解析器接入模糊测试。 |
-| **Phase 2** | `v0.3.0-alpha` | 落地 `octopus_config` 事务（revision 冲突检测、apply 回滚、确认式提交）与原子落盘机制；基于 `linenoise` 构建 `octopus_cli`；完成 RK3568 与 SSD20X 的板级 HAL 驱动实装；`liboctopus_client`（C + Python）。 |
-| **Phase 3** | `v0.4.0-beta`  | 交付 U-Boot `cmd_ofi.c` 与 A/B 双槽仲裁状态机；`liboctopus_storage`（NOR / UBI / eMMC 三种后端）；`octopus_loader` 与 `octopus_supervisor` (PID 1)；`ofi_pack` 签名工具链与防降级计数；QEMU ARM64 / ARM32 全流程端到端自动化测试。 |
+| **Phase 1** | `v0.3.0-alpha` | 确立 CMake monorepo；基于 `liboctopus_basics` 实现 `board_hal.h` / `module.h` / `config.h` 桩定义；x86 单元测试；单体主程序骨架与基础 JSON-RPC 通信验证；配置解析器与 OFI 解析器接入模糊测试。 |
+| **Phase 2** | `v0.4.0-alpha` | 落地 `octopus_config` 事务（revision 冲突检测、apply 回滚、确认式提交）与原子落盘机制；基于 `linenoise` 构建 `octopus_cli`；完成 RK3568 与 SSD20X 的板级 HAL 驱动实装；`liboctopus_client`（C + Python）。 |
+| **Phase 3** | `v0.5.0-beta`  | 交付 U-Boot `cmd_ofi.c` 与 A/B 双槽仲裁状态机；`liboctopus_storage`（NOR / UBI / eMMC 三种后端）；`octopus_loader` 与 `octopus_supervisor` (PID 1)；`ofi_pack` 签名工具链与防降级计数；QEMU ARM64 / ARM32 全流程端到端自动化测试。 |
 | **Phase 4** | `v1.0.0-rc1`   | Web 安全访问接入（Hiawatha + FastCGI）与本机 IPC 鉴权；本地 HDMI/LCD 界面示例；可选 AI 视觉进程；10,000 次随机突发掉电容灾老化测试；产线烧录与设备唯一凭证写入工具；板级 Bring-up 指南与 GPL 源码交付流程。 |
 
 ---
@@ -1436,6 +1436,20 @@ int octopus_get_health_snapshot(octopus_health_snapshot_t *out);
 6. **构建系统与 SBOM**：用户态根文件系统用 Buildroot 还是 Yocto 构建，如何与厂商 BSP 解耦，如何为每个版本产出 SBOM 并跟踪 CVE（欧盟 CRA 的硬性要求）；**Phase 1 交叉编译前建议至少选定其一**；
 7. **隐私合规**：摄像头识别人物并上传云端，涉及《个人信息保护法》、GDPR 等，需要设计本地打码、数据保留期和用户授权机制；
 8. **仓库治理**：根目录已提供 [SECURITY.md](../../SECURITY.md)（漏洞报告渠道与响应时限）。仍待开源上线后启用 GitHub Discussions、按实际 org/仓库名核对 Issue 模板与 Advisory 链接，并在有维护者公共邮箱后回填到 `CODE_OF_CONDUCT.md`。
+
+### 13.1.0 v0.x 演示阶段临时决议（ADR-0001，状态：accepted for v0.x）
+
+为尽快用可运行的 QEMU 演示验证 4.5 的 A/B 状态机，以下 Blockers 在 **v0.x（演示阶段）** 先按临时方案实施；**v1.0 之前仍须通过 RFC 正式收敛**，届时本节将被替换（superseded）。
+
+| 编号 | v0.x 临时决议 | 已知风险（明确接受） | 正式收敛时机 |
+| :--- | :--- | :--- | :--- |
+| **B1** 单一有效槽窗口 | 沿用 4.5 现行顺序：先标目标槽 `bad` 并落盘 ENV，再擦写；窗口内禁止并发升级与其他 ENV 写入 | 写入窗口内若运行槽同时损坏，两槽均不可用；QEMU 演示不模拟介质损坏，此风险不在演示覆盖范围内 | v0.5 / Phase 3 前，评估 `upgrade_phase` 方案 (a) |
+| **B2** bootcount 分类 | 不区分复位原因；`TRYING` 槽 `bootcount > 3` 即回退；`VALID` 槽不因 bootcount 被判 `bad` | 频繁掉电可能把完好的试运行固件误判为 `bad`（仅影响 `TRYING` 槽） | 接入 `octopus_board_get_reset_reason()` 后 |
+| **B3** 救援模式 | v0.x 不实现；QEMU 下以重新生成磁盘镜像代替 | 「只剩 Bootloader 也能救」在 v0.x 不成立 | Phase 3 |
+| **B4** OFI 许可 | v0.x 不实现完整 OFI；升级包采用「镜像 + SHA-256 + 签名」最小格式，仅用户态实现，Apache-2.0 | 与最终 OFI 格式不兼容，v0.x 包不保证可升级到 v1.0 | Phase 3 |
+| **B5** 构建体系 | **选定 Buildroot**（`BR2_EXTERNAL` 外部树，不修改 Buildroot 源码）；Yocto 留作后续可选层 | 需要 Yocto 的客户暂不覆盖 | 已决（同时关闭 §13-6 的构建体系部分；SBOM 另议） |
+
+v0.x 对外表述约定：README 与发布说明中**不使用「永不变砖」**，改为「在 QEMU 中经 N 次随机断电测试未出现无法启动」，并注明测试条件。
 
 ### 13.1 Phase 3 编码前 Blockers（必须定稿）
 

@@ -1437,9 +1437,9 @@ This chapter records the 7 most critical **technical decision rationales (RFC / 
 
 | Phase          | Target version          | Concrete deliverable constraints from this architecture specification                                                                                                            |
 | ----------- | -------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Phase 1** | `v0.2.0-alpha` | Establish the CMake monorepo; implement `board_hal.h` / `module.h` / `config.h` stub definitions on top of `liboctopus_basics`; x86 unit tests; monolithic main program skeleton and basic JSON-RPC communication validation; fuzz testing for the configuration parser and OFI parser. |
-| **Phase 2** | `v0.3.0-alpha` | Land `octopus_config` transactions (revision conflict detection, apply rollback, confirmed commit) and atomic persistence; build `octopus_cli` on `linenoise`; complete board HAL driver implementations for RK3568 and SSD20X; `liboctopus_client` (C + Python). |
-| **Phase 3** | `v0.4.0-beta`  | Deliver U-Boot `cmd_ofi.c` and the A/B dual-slot arbitration state machine; `liboctopus_storage` (NOR / UBI / eMMC backends); `octopus_loader` and `octopus_supervisor` (PID 1); the `ofi_pack` signing toolchain and anti-rollback counter; full end-to-end automated testing on QEMU ARM64 / ARM32. |
+| **Phase 1** | `v0.3.0-alpha` | Establish the CMake monorepo; implement `board_hal.h` / `module.h` / `config.h` stub definitions on top of `liboctopus_basics`; x86 unit tests; monolithic main program skeleton and basic JSON-RPC communication validation; fuzz testing for the configuration parser and OFI parser. |
+| **Phase 2** | `v0.4.0-alpha` | Land `octopus_config` transactions (revision conflict detection, apply rollback, confirmed commit) and atomic persistence; build `octopus_cli` on `linenoise`; complete board HAL driver implementations for RK3568 and SSD20X; `liboctopus_client` (C + Python). |
+| **Phase 3** | `v0.5.0-beta`  | Deliver U-Boot `cmd_ofi.c` and the A/B dual-slot arbitration state machine; `liboctopus_storage` (NOR / UBI / eMMC backends); `octopus_loader` and `octopus_supervisor` (PID 1); the `ofi_pack` signing toolchain and anti-rollback counter; full end-to-end automated testing on QEMU ARM64 / ARM32. |
 | **Phase 4** | `v1.0.0-rc1`   | Secure Web access (Hiawatha + FastCGI) and local IPC authentication; local HDMI/LCD UI example; optional AI vision process; 10,000-cycle random sudden power-loss resilience burn-in testing; production-line flashing and device-unique credential provisioning tools; board bring-up guide and GPL source delivery process. |
 
 ---
@@ -1477,6 +1477,20 @@ The following issues directly affect mass production but still have no design co
 6. **Build system and SBOM**: Whether the user-space root file system is built with Buildroot or Yocto, how to decouple from vendor BSPs, and how to produce an SBOM for each release and track CVEs (a hard requirement of the EU CRA); **it is recommended to choose at least one before Phase 1 cross-compilation**;
 7. **Privacy compliance**: Cameras recognizing people and uploading to the cloud involve the Personal Information Protection Law (PIPL), GDPR, etc.; local masking, data retention periods, and user consent mechanisms need to be designed;
 8. **Repository governance**: [SECURITY.md](../../SECURITY.md) (vulnerability reporting channel and response timelines) is already provided at the repository root. Still pending after the open-source launch: enable GitHub Discussions, verify Issue templates and Advisory links against the actual org/repository name, and fill in a maintainer public email in `CODE_OF_CONDUCT.md` once available.
+
+### 13.1.0 Interim decisions for v0.x (ADR-0001, status: accepted for v0.x)
+
+To validate the §4.5 A/B state machine with a runnable QEMU demo as early as possible, the blockers below are implemented with interim choices during **v0.x (demo stage)**. They **must still be formally closed via RFC before v1.0**, at which point this section is superseded.
+
+| ID | v0.x interim decision | Known risk (explicitly accepted) | Formal closure |
+| :--- | :--- | :--- | :--- |
+| **B1** single-valid-slot window | Keep the current §4.5 order: mark target slot `bad` and persist ENV before erasing; no concurrent upgrades or other ENV writes during the window | If the running slot is also damaged during the window, both slots are unusable; the QEMU demo does not simulate media damage | Before v0.5 / Phase 3, evaluate the `upgrade_phase` option (a) |
+| **B2** bootcount classification | Reset reasons are not distinguished; a `TRYING` slot with `bootcount > 3` rolls back; a `VALID` slot is never marked `bad` by bootcount | Frequent power loss may mark a good trial firmware `bad` (`TRYING` slots only) | After `octopus_board_get_reset_reason()` lands |
+| **B3** rescue mode | Not implemented in v0.x; under QEMU, regenerating the disk image stands in for rescue | "Recoverable with only the bootloader left" does not hold in v0.x | Phase 3 |
+| **B4** OFI licensing | Full OFI not implemented in v0.x; minimal package = image + SHA-256 + signature, user space only, Apache-2.0 | Not compatible with final OFI; v0.x packages are not guaranteed to upgrade to v1.0 | Phase 3 |
+| **B5** build system | **Buildroot chosen** (`BR2_EXTERNAL` tree, no changes to Buildroot sources); Yocto may be added later as an optional layer | Yocto users not covered for now | Closed (also closes the build-system part of §13-6; SBOM tracked separately) |
+
+Public wording for v0.x: README and release notes **do not say "never bricks"**; they say "no unbootable state across N random power-cut tests in QEMU", with test conditions stated.
 
 ### 13.1 Blockers Before Phase 3 Coding (Must Be Finalized)
 

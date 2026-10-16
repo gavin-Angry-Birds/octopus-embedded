@@ -167,9 +167,10 @@ Octopus Embedded 是一套开源架构与后续代码仓的设计起点，面向
 | 阶段  | 重点                                                | 标签              | 状态       |
 | --- | ------------------------------------------------- | --------------- | -------- |
 | 0   | 架构草案与 RFC（本仓库文档）                                  | `v0.1.0-design` | 已发布，开放讨论 |
-| 1   | `liboctopus_basics`、CMake、单测、解析器 fuzz、JSON-RPC 雏形 | `v0.2.0-alpha`  | 计划中      |
-| 2   | CLI、配置事务、Board HAL、对外 SDK                         | `v0.3.0-alpha`  | 计划中      |
-| 3   | U-Boot OFI、supervisor、双槽固件                        | `v0.4.0-beta`   | 计划中      |
+| 0.5 | QEMU A/B OTA 最小演示（断电测试 + CI）                 | `v0.2.0-demo`   | 下一步      |
+| 1   | `liboctopus_basics`、CMake、单测、解析器 fuzz、JSON-RPC 雏形 | `v0.3.0-alpha`  | 计划中      |
+| 2   | CLI、配置事务、Board HAL、对外 SDK                         | `v0.4.0-alpha`  | 计划中      |
+| 3   | U-Boot OFI、supervisor、双槽固件                        | `v0.5.0-beta`   | 计划中      |
 | 4   | 集成、可选视觉、压测                                        | `v1.0.0-rc1`    | 计划中      |
 
 
