@@ -16,10 +16,10 @@ This roadmap tracks public delivery milestones. Tags follow [Semantic Versioning
 - [x] Logo & visual identity (`assets/logo.svg`, `assets/banner.svg`, `assets/icon.svg`)
 - [x] Add `SECURITY.md` (vulnerability reporting channel and response times)
 - [x] Add `CHANGELOG.md` and document language policy (Chinese authoritative + `*.en.md` twins for all design docs)
-- [ ] GitHub public repository live
-- [ ] Enable GitHub Discussions for RFCs
+- [x] GitHub public repository live
+- [x] Enable GitHub Discussions for RFCs
 - [x] Point Issue-template / Security-advisory / CHANGELOG URLs at `gavin-Angry-Birds/octopus-embedded`
-- [ ] Verify Discussions and private vulnerability reporting are enabled after first push
+- [x] Verify Discussions and private vulnerability reporting are enabled after first push
 - [x] Interim v0.x decisions for **Phase 3 blockers** recorded in architecture §13.1.0 (ADR-0001); formal closure deferred to Phase 3
 - [ ] Continue RFC discussion on other chapter 13 open issues (real-time control ownership, network/cellular, remote access, OTA download protocol, …)
 
@@ -44,13 +44,13 @@ This roadmap tracks public delivery milestones. Tags follow [Semantic Versioning
 
 **Done when:** 1000 random power-cut cycles in QEMU with 0 unbootable outcomes, reproducible with one command.
 
-> Phase 1–3 target tags were each shifted by one minor version to make room for this demo (Phase 1 → `v0.3.0-alpha`, Phase 2 → `v0.4.0-alpha`, Phase 3 → `v0.5.0-beta`); Phase 4 stays `v1.0.0-rc1`. The custom PID 1 supervisor is planned after this demo.
+> Phase 1 (`liboctopus_basics`, JSON-RPC, …) target tag moves to `v0.3.0-alpha`; later phases shift by one minor version. The custom PID 1 supervisor is planned after this demo.
 
 ---
 
 ## Phase 1 — Core skeleton
 
-**Target tag:** `v0.3.0-alpha`
+**Target tag:** `v0.2.0-alpha`
 
 - [ ] New `octopus-core` layout inside this repo (CMake monorepo)
 - [ ] Extract `liboctopus_basics` (OSAL, lock_watchdog, trace, dual-track alloc stats)
@@ -63,7 +63,7 @@ This roadmap tracks public delivery milestones. Tags follow [Semantic Versioning
 
 ## Phase 2 — Management plane & Board HAL
 
-**Target tag:** `v0.4.0-alpha`
+**Target tag:** `v0.3.0-alpha`
 
 - [ ] octopus_cli engine + `.ocli` compile-time code generator
 - [ ] octopus_config running-config serialize / replay
@@ -75,7 +75,7 @@ This roadmap tracks public delivery milestones. Tags follow [Semantic Versioning
 
 ## Phase 3 — Boot resilience & firmware
 
-**Target tag:** `v0.5.0-beta`
+**Target tag:** `v0.4.0-beta`
 
 - [ ] U-Boot `cmd_ofi.c` port (RK3568 + SSD20X parity, GPL-2.0-or-later)
 - [ ] A/B firmware arbitration + boot-count rollback
@@ -130,19 +130,19 @@ This roadmap tracks public delivery milestones. Tags follow [Semantic Versioning
 
 ### 阶段 0.5 — QEMU A/B OTA 最小演示
 
-**目标标签：** `v0.2.0-demo` — Buildroot 外部树 + QEMU arm64、ENV/SLOT_A/SLOT_B/DATA 分区、U-Boot 按 ENV 选槽与 bootcount 回退、`octopus-ota` 安装/确认、随机断电测试脚本与 CI。**完成标准：** QEMU 中 1000 次随机断电，0 次无法启动，一条命令可复现。临时决议见架构规范 §13.1.0（ADR-0001）。阶段 1–3 标签各顺延一个次版本号（阶段 1 → `v0.3.0-alpha`、阶段 2 → `v0.4.0-alpha`、阶段 3 → `v0.5.0-beta`），阶段 4 仍为 `v1.0.0-rc1`，自研 PID 1 监视进程排在本演示之后。
+**目标标签：** `v0.2.0-demo` — Buildroot 外部树 + QEMU arm64、ENV/SLOT_A/SLOT_B/DATA 分区、U-Boot 按 ENV 选槽与 bootcount 回退、`octopus-ota` 安装/确认、随机断电测试脚本与 CI。**完成标准：** QEMU 中 1000 次随机断电，0 次无法启动，一条命令可复现。临时决议见架构规范 §13.1.0（ADR-0001）。阶段 1 顺延为 `v0.3.0-alpha`，自研 PID 1 监视进程排在本演示之后。
 
 ### 阶段 1 — 核心骨架
 
-**目标标签：** `v0.3.0-alpha` — `liboctopus_basics`、CMake、x86 单元测试、解析器模糊测试、JSON-RPC 雏形。
+**目标标签：** `v0.2.0-alpha` — `liboctopus_basics`、CMake、x86 单元测试、解析器模糊测试、JSON-RPC 雏形。
 
 ### 阶段 2 — 管理面与 Board HAL
 
-**目标标签：** `v0.4.0-alpha` — octopus_cli、octopus_config（冲突检测、回滚、确认式提交）、板级 HAL、对外 SDK。
+**目标标签：** `v0.3.0-alpha` — octopus_cli、octopus_config（冲突检测、回滚、确认式提交）、板级 HAL、对外 SDK。
 
 ### 阶段 3 — 引导与固件容灾
 
-**目标标签：** `v0.5.0-beta` — U-Boot OFI（GPL-2.0）、A/B 双固件、`liboctopus_storage`、固件签名与防降级、octopus_loader / octopus_supervisor、QEMU ARM64 / ARM32 全流程。
+**目标标签：** `v0.4.0-beta` — U-Boot OFI（GPL-2.0）、A/B 双固件、`liboctopus_storage`、固件签名与防降级、octopus_loader / octopus_supervisor、QEMU ARM64 / ARM32 全流程。
 
 ### 阶段 4 — 集成与量产压测
 
